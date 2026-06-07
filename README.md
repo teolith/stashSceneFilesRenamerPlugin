@@ -1,6 +1,6 @@
 # SceneFilesRenamer
 
-This is a Stash plugin by Teo Lith, which enables renaming scene files to a customizable template
+This is a Stash plugin by Teolith, which enables renaming scene files to a customizable template
 by updating the scene's metadata in the [Edit] tab.
 
 It is loosely based on the RenameFile plugin by David Maisonave (aka Axter) albeit a complete rewrite.
