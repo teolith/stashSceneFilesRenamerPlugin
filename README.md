@@ -1,20 +1,37 @@
 # SceneFilesRenamer
 
-This is a Stash plugin by Teo Lith, which enables users to rename scene file(s) to a customizable template
+This is a Stash plugin by Teo Lith, which enables renaming scene files to a customizable template
 by updating the scene's metadata in the [Edit] tab.
 
 It is loosely based on the RenameFile plugin by David Maisonave (aka Axter) albeit a complete rewrite.
 
 I started off looking for a rename plugin which suited my needs.  
 In the end I was not happy with the choices made by other rename plugin authors.  
-This caused me to write my own.  
-Note this wouldn't have been possible without the work of the other rename plugin authors.  
+This caused me to write my own plugin (wired with my choices).  
+Note this wouldn't have been possible without the work of the other Rename plugin authors.  
+
+## Content
+- [Disclaimer](#Disclaimer)
+- [Rename Template](#Rename-Template)
+  - [Syntax](#Syntax)
+  - [Supported properties](#Supported-properties)
+  - [Example](#Example)
+- [Dry run](#Dry-run)
+- [Logging](#Logging)
+  - [Debug tracing](#Debug-tracing)
+- [Tasks](#Tasks)
+
+## Disclaimer
+I only ever tested this plugin on my own setup and have gotten the results I expected.  
+I am aware that there are probably a lot of corner cases I haven't seen yet and as such weren't able to address yet.  
+Please bare this in mind when it screws up on your system.
 
 ## Rename Template
-The central feature of this rename plugin is the configurable *Rename Template*.  
+The central feature of this rename plugin is the configurable *Rename Template* 
+(Settings > Plugins > Plugins > SceneFilesRenamer > Rename Template).  
 Here you can define the scene filename in terms of scene properties.
 
-Assume *Rename Template* is set to `[$(studio)] $(title)`  
+Assume *Rename Template* is set to `[$(studio)] $(title)`.  
 It contains two *Property Placeholders*, namely `$(studio)` and `$(title)`.  
 Updating a scene with studio `"Wow"` and title `"Oh my goodness"` will cause the associated `mp4` file to rename to `"[Wow] Oh my goodness.mp4"`.  
 
@@ -34,7 +51,7 @@ A *Property Placeholder* with two *Format Specifiers* with options looks like `$
   - no format specifiers
 - performers
   - filter:  
-    e.g. `filter(female)` formats Susan, John and Lisa as `Susan, Lisa`  
+    e.g. `filter(female)` formats Susan, John and Lisa as `Susan, Lisa` (assuming Susan and Lisa are male and John is not).  
     available filters are `all`, `female`, `male`, `!female`, and `!male`
   - seperator:   
     e.g. `seperator(, )` formats Susan, John and Lisa as `Susan, John, Lisa`
@@ -49,6 +66,18 @@ A *Property Placeholder* with two *Format Specifiers* with options looks like `$
 ### Example
 A more elaborate example of a *Rename Template*:  
 `[$(studio)] $(title) - $(performers:filter(!male):separator(, )) ($(date:%Y-%m-%d)) [$(height)p]`
+
+## Dry run
+The *Dry run* settingin the plugin's configuration enables running without actually renaming files (Settings > Plugings > Plugins > SceneFilesRenamer > Dry run).  
+Although this doesn't catch renaming issues like illegal characters, readonly files or name clashes, it will enable to preview what the plugin would rename the found files to. 
+
+## Logging
+This plugin logs to Stash's own log (Settings > Logs).  
+To enable focussing on log entries from this plugin, it also logs to its own logfile in the plugin's directory:  
+`<plugin-dir>/sceneFilesRenamer.log`.
+
+### Debug tracing
+It is also possible to enable *Debug tracing* to get more verbose logging in the plugin's configuration (Settings > Plugings > Plugins > SceneFilesRenamer > Debug Tracing).
 
 ## Tasks
 Next to the rename functionality on scene update, this plugin supplies two Tasks.

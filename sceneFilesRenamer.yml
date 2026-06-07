@@ -13,7 +13,7 @@ settings:
     type: BOOLEAN
   debugTracing:
     displayName: Debug Tracing
-    description: "Enable verbose debug logging to scenerename.log"
+    description: "Enable debug tracing to the logs"
     type: BOOLEAN
 exec:
   - python
