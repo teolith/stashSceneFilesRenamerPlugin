@@ -1,0 +1,35 @@
+name: SceneFilesRenamer
+description: description
+version: 0.0.1
+url: 
+settings:
+  renameTemplate:
+    displayName: Rename Template
+    description: "Define the rename template with fields inserted as $(field) to use to format the file name."
+    type: STRING
+  dryRun:
+    displayName: Dry Run
+    description: "Enable to preview renames in the log without actually renaming files."
+    type: BOOLEAN
+  debugTracing:
+    displayName: Debug Tracing
+    description: "Enable verbose debug logging to scenerename.log"
+    type: BOOLEAN
+exec:
+  - python
+  - "{pluginDir}/sceneFilesRenamer.py"
+interface: raw
+hooks:
+  - name: SceneFilesRenameHook
+    description: Renames scene files on scene update.
+    triggeredBy:
+      - Scene.Update.Post
+tasks:
+  - name: Run (rename all scene files) for last updated Studio
+    description: description
+    defaultArgs:
+      mode: runForLastUpdatedStudio
+  - name: Dry Run (rename all scene files) for last updated Studio
+    description: description
+    defaultArgs:
+      mode: dryRunForLastUpdatedStudio
